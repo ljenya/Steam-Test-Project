@@ -1,6 +1,5 @@
 package com.example.android.lifecycleawaregithubsearch;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,16 +16,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.android.lifecycleawaregithubsearch.data.GitHubRepo;
 import com.example.android.lifecycleawaregithubsearch.data.LoadingStatus;
-import com.example.android.lifecycleawaregithubsearch.data.apps;
-import com.example.android.lifecycleawaregithubsearch.utils.GitHubUtils;
+import com.example.android.lifecycleawaregithubsearch.data.Apps;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,9 +64,9 @@ public class MainActivity extends AppCompatActivity implements GitHubSearchAdapt
 
         this.githubSearchViewModel.getSearchResults().observe(
                 this,
-                new Observer<List<apps>>() {
+                new Observer<List<Apps>>() {
                     @Override
-                    public void onChanged(List<apps> apps) {
+                    public void onChanged(List<Apps> apps) {
                         githubSearchAdapter.updateSearchResults(apps);
                     }
                 }
@@ -104,9 +97,9 @@ public class MainActivity extends AppCompatActivity implements GitHubSearchAdapt
             @Override
             public void onClick(View v) {
                 String searchQuery = searchBoxET.getText().toString();
+                githubSearchViewModel.loadSearchResults();
                 if (!TextUtils.isEmpty(searchQuery)) {
 //                    doGitHubSearch(searchQuery);
-                    githubSearchViewModel.loadSearchResults();
                 }
             }
         });
@@ -189,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements GitHubSearchAdapt
 //    }
 
     @Override
-    public void onSearchResultClicked(apps repo) {
+    public void onSearchResultClicked(Apps repo) {
         Log.d(TAG, "Search result clicked: " + repo.name);
         Intent intent = new Intent(this, RepoDetailActivity.class);
         intent.putExtra(RepoDetailActivity.EXTRA_GITHUB_REPO, repo);

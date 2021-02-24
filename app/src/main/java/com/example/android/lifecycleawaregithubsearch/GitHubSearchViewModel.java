@@ -1,9 +1,8 @@
 package com.example.android.lifecycleawaregithubsearch;
 
-import com.example.android.lifecycleawaregithubsearch.data.GitHubRepo;
 import com.example.android.lifecycleawaregithubsearch.data.GitHubSearchRepository;
 import com.example.android.lifecycleawaregithubsearch.data.LoadingStatus;
-import com.example.android.lifecycleawaregithubsearch.data.apps;
+import com.example.android.lifecycleawaregithubsearch.data.Apps;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ import androidx.lifecycle.ViewModel;
 
 public class GitHubSearchViewModel extends ViewModel {
     private GitHubSearchRepository repository;
-    private LiveData<List<apps>> searchResults;
+    private LiveData<List<Apps>> searchResults;
     private LiveData<LoadingStatus> loadingStatus;
 
     public GitHubSearchViewModel() {
@@ -21,7 +20,7 @@ public class GitHubSearchViewModel extends ViewModel {
         this.loadingStatus = this.repository.getLoadingStatus();
     }
 
-    public LiveData<List<apps>> getSearchResults() {
+    public LiveData<List<Apps>> getSearchResults() {
         return this.searchResults;
     }
 

@@ -17,7 +17,7 @@ public class GitHubSearchRepository {
     private static final String TAG = GitHubSearchRepository.class.getSimpleName();
     private static final String BASE_URL = "https://api.steampowered.com/";
 
-    private MutableLiveData<List<apps>> searchResults;
+    private MutableLiveData<List<Apps>> searchResults;
     private MutableLiveData<LoadingStatus> loadingStatus;
 
     private String currentQuery;
@@ -38,7 +38,7 @@ public class GitHubSearchRepository {
         this.gitHubService = retrofit.create(GitHubService.class);
     }
 
-    public LiveData<List<apps>> getSearchResults() {
+    public LiveData<List<Apps>> getSearchResults() {
         return this.searchResults;
     }
 
@@ -58,9 +58,9 @@ public class GitHubSearchRepository {
                 public void onResponse(Call<GitHubSearchResults> call, Response<GitHubSearchResults> response) {
                     if (response.code() == 200) {
                         Log.d(TAG, "GOT STUFF");
-                        searchResults.setValue(response.body().apps.apps);
+                        searchResults.setValue(response.body().applist.apps);
                         loadingStatus.setValue(LoadingStatus.SUCCESS);
-                        Log.d(TAG, "GOT STUFF" + response.body().apps.apps);
+                        Log.d(TAG, "GOT STUFF" + response.body().applist.apps);
                     } else {
                         loadingStatus.setValue(LoadingStatus.ERROR);
                     }

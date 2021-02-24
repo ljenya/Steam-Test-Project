@@ -2,9 +2,8 @@ package com.example.android.lifecycleawaregithubsearch.utils;
 
 import android.net.Uri;
 
-import com.example.android.lifecycleawaregithubsearch.data.GitHubRepo;
 import com.example.android.lifecycleawaregithubsearch.data.GitHubSearchResults;
-import com.example.android.lifecycleawaregithubsearch.data.apps;
+import com.example.android.lifecycleawaregithubsearch.data.Apps;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -23,9 +22,9 @@ public class GitHubUtils {
                 .toString();
     }
 
-    public static ArrayList<apps> parseGitHubSearchResults(String json) {
+    public static ArrayList<Apps> parseGitHubSearchResults(String json) {
         Gson gson = new Gson();
         GitHubSearchResults results = gson.fromJson(json, GitHubSearchResults.class);
-        return results != null ? results.apps.apps : null;
+        return results != null ? results.applist.apps : null;
     }
 }

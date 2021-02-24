@@ -5,28 +5,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.lifecycleawaregithubsearch.data.GitHubRepo;
-import com.example.android.lifecycleawaregithubsearch.data.apps;
+import com.example.android.lifecycleawaregithubsearch.data.Apps;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class GitHubSearchAdapter extends RecyclerView.Adapter<GitHubSearchAdapter.SearchResultViewHolder> {
-    private List<apps> searchResultsList;
+    private List<Apps> searchResultsList;
     private OnSearchResultClickListener resultClickListener;
 
     interface OnSearchResultClickListener {
-        void onSearchResultClicked(apps repo);
+        void onSearchResultClicked(Apps repo);
     }
 
     public GitHubSearchAdapter(OnSearchResultClickListener listener) {
         this.resultClickListener = listener;
     }
 
-    public void updateSearchResults(List<apps> searchResultsList) {
+    public void updateSearchResults(List<Apps> searchResultsList) {
         this.searchResultsList = searchResultsList;
         notifyDataSetChanged();
     }
@@ -70,7 +68,7 @@ public class GitHubSearchAdapter extends RecyclerView.Adapter<GitHubSearchAdapte
             });
         }
 
-        void bind(apps repo) {
+        void bind(Apps repo) {
             this.searchResultTV.setText(repo.name);
         }
     }
