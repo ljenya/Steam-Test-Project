@@ -64,23 +64,17 @@ public class MainActivity extends AppCompatActivity implements GitHubSearchAdapt
         this.githubSearchViewModel = new ViewModelProvider(this)
                 .get(GitHubSearchViewModel.class);
 
-        this.githubSearchViewModel.getSearchResults().observe(
+    /*    this.githubSearchViewModel.getSearchResults().observe(
                 this,
                 new Observer<List<Apps>>() {
                     @Override
                     public void onChanged(List<Apps> apps) {
                         if(apps != null) {
-                            List<Apps> appList = new ArrayList<Apps>();
-                            for (int i = 0; i < apps.size(); i++) {
-                                if (apps.get(i).name.contains(searchQuery)) {
-                                    appList.add(apps.get(i));
-                                }
-                            }
-                            githubSearchAdapter.updateSearchResults(appList);
+                            updateSearch(apps);
                         }
                     }
                 }
-        );
+        );*/
 
         this.githubSearchViewModel.getLoadingStatus().observe(
                 this,
@@ -107,17 +101,31 @@ public class MainActivity extends AppCompatActivity implements GitHubSearchAdapt
             @Override
             public void onClick(View v) {
                 searchQuery = searchBoxET.getText().toString();
-                githubSearchViewModel.loadSearchResults();
-                if (!TextUtils.isEmpty(searchQuery)) {
-//                    doGitHubSearch(searchQuery);
-                }
+                updateSearch(githubSearchViewModel.getSearchResults().getValue());
             }
         });
+
+
+        githubSearchViewModel.loadSearchResults();
+
+
 
 //        if (savedInstanceState != null && savedInstanceState.containsKey(SEARCH_RESULTS_LIST_KEY)) {
 //            this.searchResultsList = (ArrayList) savedInstanceState.getSerializable(SEARCH_RESULTS_LIST_KEY);
 //            this.githubSearchAdapter.updateSearchResults(this.searchResultsList);
 //        }
+    }
+
+    public void updateSearch(List<Apps> apps){
+        if(apps != null) {
+            List<Apps> appList = new ArrayList<Apps>();
+            for (int i = 0; i < apps.size(); i++) {
+                if (apps.get(i).name.toLowerCase().contains(searchQuery.toLowerCase())) {
+                    appList.add(apps.get(i));
+                }
+            }
+            githubSearchAdapter.updateSearchResults(appList);
+        }
     }
 
 //    @Override

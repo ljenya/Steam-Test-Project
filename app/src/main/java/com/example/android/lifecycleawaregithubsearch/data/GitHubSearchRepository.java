@@ -47,8 +47,7 @@ public class GitHubSearchRepository {
     }
 
     public void loadSearchResults() {
-        if (1 == 1) {
-            //this.currentQuery = query;
+        if (true) {
             this.searchResults.setValue(null);
             this.loadingStatus.setValue(LoadingStatus.LOADING);
             Log.d(TAG, "running new search for this query: ");
