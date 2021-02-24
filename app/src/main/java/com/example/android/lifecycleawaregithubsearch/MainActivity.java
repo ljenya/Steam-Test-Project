@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements GitHubSearchAdapt
 
     private RequestQueue requestQueue;
 
+    private String searchQuery;
+
     private ArrayList<GitHubRepo> searchResultsList;
 
     @Override
@@ -67,7 +69,15 @@ public class MainActivity extends AppCompatActivity implements GitHubSearchAdapt
                 new Observer<List<Apps>>() {
                     @Override
                     public void onChanged(List<Apps> apps) {
-                        githubSearchAdapter.updateSearchResults(apps);
+                        if(apps != null) {
+                            List<Apps> appList = new ArrayList<Apps>();
+                            for (int i = 0; i < apps.size(); i++) {
+                                if (apps.get(i).name.contains(searchQuery)) {
+                                    appList.add(apps.get(i));
+                                }
+                            }
+                            githubSearchAdapter.updateSearchResults(appList);
+                        }
                     }
                 }
         );
@@ -96,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements GitHubSearchAdapt
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String searchQuery = searchBoxET.getText().toString();
+                searchQuery = searchBoxET.getText().toString();
                 githubSearchViewModel.loadSearchResults();
                 if (!TextUtils.isEmpty(searchQuery)) {
 //                    doGitHubSearch(searchQuery);
